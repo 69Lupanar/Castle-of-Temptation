@@ -53,14 +53,10 @@ namespace Assets.Scripts.Runtime.ViewModels.Player
             _input.Player.MoveRight.started += ctx => MoveDirection = new int2(1, 0);
             _input.Player.MoveBottom.started += ctx => MoveDirection = new int2(0, -1);
             _input.Player.MoveLeft.started += ctx => MoveDirection = new int2(-1, 0);
-
-            if (_allow8Way)
-            {
-                _input.Player.MoveUpRight.started += ctx => MoveDirection = new int2(1, 1);
-                _input.Player.MoveBottomRight.started += ctx => MoveDirection = new int2(1, -1);
-                _input.Player.MoveBottomLeft.started += ctx => MoveDirection = new int2(-1, -1);
-                _input.Player.MoveUpLeft.started += ctx => MoveDirection = new int2(-1, 1);
-            }
+            _input.Player.MoveUpRight.started += ctx => MoveDirection = _allow8Way ? new int2(1, 1) : MoveDirection;
+            _input.Player.MoveBottomRight.started += ctx => MoveDirection = _allow8Way ? new int2(1, -1) : MoveDirection;
+            _input.Player.MoveBottomLeft.started += ctx => MoveDirection = _allow8Way ? new int2(-1, -1) : MoveDirection;
+            _input.Player.MoveUpLeft.started += ctx => MoveDirection = _allow8Way ? new int2(-1, 1) : MoveDirection;
         }
 
         /// <summary>
